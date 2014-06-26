@@ -8,19 +8,23 @@
       <input id='username' placeholder='Enter a Github username'>
       <button type='submit'>Load profile</button>
     </form>
+   
+    
 
-    <img src='http://www.iab.net/extra/adquickref/spinnerLarge.gif' class='spinner'>
+<!--     <img src='http://www.iab.net/extra/adquickref/spinnerLarge.gif' class='spinner'> -->
 
     <div class='profile-container'>
+
     </div>
 
     <template id='profile-template'>
-      <div class="profile" id="profile">
+      <div class="profile">
         <div class="left">
           <img src="{{ avatar_url }}">
         </div>
 
         <div class="right">
+
           <h3>
             <a href="{{ html_url }}">
               {{ login }}
@@ -28,6 +32,7 @@
           </h3>
           <h4>Repos: {{ public_repos }}</h4>
           <h4>Followers: {{ followers }}</h4>
+            <button class="delete">Delete</button>
         </div>
         <br clear="all">
       </div>
@@ -36,14 +41,15 @@
     <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
     <script src='mustache.js'></script>
     <script>
-      function getProfile(username) {
-        $('.spinner').show();
+      function getProfile() {
 
-        $.get('https://api.github.com/users/' + username, function(user){
+        $('.spinner').show();
+    
+        $.get('joey_profile.json', function(user){
           var newProfile = Mustache.render($('#profile-template').html(), user);
-          $('.profile-container').prepend(newProfile);
+          $(newProfile).prependTo('.profile-container').fadeIn();
         }).error(function(){
-          alert("There is no user called " + username);
+          alert("There is no user called Joey");
         }).always(function(){
           $('#username').val('');
           $('.spinner').hide();
@@ -51,16 +57,22 @@
       }
 
       $(document).ready(function(){
-        ['alexmakers', 'ecomba', 'painted'].forEach(function(username){
-          getProfile(username);
-        })
+        // ['alexmakers', 'ecomba', 'painted'].forEach(function(username){
+        //   getProfile(username);
+        
+        $('.profile-container').on('click', '.delete', function() {
+          $('.profile').remove()
+        });
+
+        getProfile()
+          // $('#profile').fadeIn();
 
         $('#add_profile').on('submit', function(event){
           event.preventDefault();
           getProfile($('#username').val());
-          $('#profile').fadeIn();
-
         });
+
+        
       });
     </script>
   </body>
