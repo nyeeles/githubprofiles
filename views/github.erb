@@ -61,7 +61,7 @@
         //   getProfile(username);
         
         $('.profile-container').on('click', '.delete', function() {
-          $('.profile').remove()
+          $(this).closest('.profile').remove();
         });
 
         getProfile()
