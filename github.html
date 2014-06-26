@@ -15,7 +15,7 @@
     </div>
 
     <template id='profile-template'>
-      <div class="profile">
+      <div class="profile" id="profile">
         <div class="left">
           <img src="{{ avatar_url }}">
         </div>
@@ -57,7 +57,9 @@
 
         $('#add_profile').on('submit', function(event){
           event.preventDefault();
-          getProfile($('#username').val())
+          getProfile($('#username').val());
+          $('#profile').fadeIn();
+
         });
       });
     </script>

@@ -22,6 +22,7 @@ input {
   border-radius: 15px;
   color: #fff;
   margin-bottom: 20px;
+  display: none;
 }
 
 .profile a {
@@ -45,3 +46,4 @@ input {
 .profile img {
   width: 100%;
 }
+
